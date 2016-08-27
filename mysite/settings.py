@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'multichoice',
     'true_false',
     'essay',
+    'nine_app'
 ]
 
 MIDDLEWARE_CLASSES = [
