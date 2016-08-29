@@ -2,9 +2,13 @@
 # $GIT_DIR/info/exclude or the core.excludesFile configuration variable as
 # described in https://git-scm.com/docs/gitignore
 
+.idea
 *.egg-info
 *.pot
 *.py[co]
+*/*.py[co]
+mysite/*.pyc
+nine_app/*.pyc
 .tox/
 __pycache__
 MANIFEST

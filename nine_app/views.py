@@ -48,7 +48,9 @@ def get_questions(request, user_id=None):
     for question in questions:
         to_return_item = {'question': question.content}
         if question.figure:
-            to_return_item['figure'] = request.META['HTTP_HOST'] + question.figure.url
+            to_return_item['figure'] = {'url': request.META['HTTP_HOST'] + question.figure.url, 'exists': True}
+        else:
+            to_return_item['figure'] = {'url': None, 'exists': False}
         answers = question.get_answers()
         answers = [{'content': answer.content, 'correct': answer.correct} for answer in answers]
         to_return_item['answers'] = answers
@@ -62,6 +64,30 @@ def get_questions(request, user_id=None):
     shuffle(to_return_arr)
     to_return_arr = to_return_arr[:9]
     data = {'data': to_return_arr}
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+def score_submission(request, user_id=None):
+    # This code was written while I was high,
+    # please excuse if any mistakes found
+    print "User ID : ", user_id
+
+    email = request.GET.get('email', 'default@default.com')
+    print "Email : ", email
+
+    mobile = request.GET.get('mobile', '9999999999')
+    print "Mobile : ", mobile
+
+    score = request.GET.get('score', 0)
+    print "Score : ", score
+
+    user = User.objects.get(pk=user_id)
+    user.email = email
+    user.mobile = mobile
+    user.score = score
+    user.save()
+    data = {'response': 'sucessfull'}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
