@@ -4,6 +4,7 @@ import pprint
 from django.http import HttpResponse
 from quiz.models import Quiz
 from .models import User
+from random import shuffle
 from multichoice.models import MCQuestion, Answer
 
 
@@ -46,13 +47,19 @@ def get_questions(request, user_id=None):
     to_return_arr = []
     for question in questions:
         to_return_item = {'question': question.content}
+        if question.figure:
+            to_return_item['figure'] = request.META['HTTP_HOST'] + question.figure.url
         answers = question.get_answers()
         answers = [{'content': answer.content, 'correct': answer.correct} for answer in answers]
         to_return_item['answers'] = answers
         to_return_arr.append(to_return_item)
-
+    print "Hello"
+    print request.META['HTTP_HOST']
+    print "Bello"
+    print request.build_absolute_uri()
     pp = pprint.PrettyPrinter(indent=4)
     print pp.pprint(to_return_arr)
+    shuffle(to_return_arr)
     to_return_arr = to_return_arr[:9]
     data = {'data': to_return_arr}
 
