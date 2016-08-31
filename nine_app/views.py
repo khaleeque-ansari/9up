@@ -94,7 +94,8 @@ def score_submission(request, user_id=None):
 
 def get_ad_url(request, user_id=None):
 
-    data = {'url': 'https://www.youtube.com/watch?v=GGFMRGhy96U'}
+    data = {'url': 'https://www.youtube.com/watch?v=r6JbMCVbhWw'}
+    data = {'url': 'https://www.youtube.com/watch?v=uUI7aKspXw8'}
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
