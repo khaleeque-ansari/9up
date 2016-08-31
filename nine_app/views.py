@@ -92,6 +92,12 @@ def score_submission(request, user_id=None):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
+def get_ad_url(request, user_id=None):
+
+    data = {'url': 'https://www.youtube.com/watch?v=GGFMRGhy96U'}
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
 def test(request):
 
     category_id = 1
